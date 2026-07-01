@@ -55,6 +55,8 @@ export const [getPaceCaretWpm, setPaceCaretWpm] = createSignal<
 export const [getCurrentQuote, setCurrentQuote] =
   createSignal<QuoteWithTextSplit | null>(null);
 
+export const [isTestActive, setTestActive] = createSignal(false);
+
 createEffect(() => {
   getActivePage(); // depend on active page
   setIsLongTest(

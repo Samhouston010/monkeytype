@@ -65,7 +65,11 @@ import {
 } from "../utils/dom";
 import { getTheme } from "../states/theme";
 import { skipBreakdownEvent } from "../states/header";
-import { getCurrentQuote, wordsHaveNewline } from "../states/test";
+import {
+  getCurrentQuote,
+  isTestActive,
+  wordsHaveNewline,
+} from "../states/test";
 import {
   getCorrectedWordsHistory,
   getInputHistory,
@@ -93,7 +97,7 @@ export function focusWords(force = false): void {
     blurInputElement();
   }
   focusInputElement(true);
-  if (TestState.isActive) {
+  if (isTestActive()) {
     keepWordsInputInTheCenter(true);
   } else {
     const typingTest = document.querySelector<HTMLElement>("#typingTest");

@@ -9,11 +9,11 @@ import {
   canSetConfigWithCurrentFunboxes,
   canSetFunboxWithConfig,
 } from "./funbox-validation";
-import * as TestState from "../test/test-state";
 import { typedKeys, triggerResize, escapeHTML } from "../utils/misc";
 import { camelCaseToWords, capitalizeFirstLetter } from "../utils/strings";
 import { Config, setConfigStore } from "./store";
 import { FunboxName } from "@monkeytype/schemas/configs";
+import { isTestActive } from "../states/test";
 
 export function setConfig<T extends keyof ConfigSchemas.Config>(
   key: T,
@@ -40,7 +40,7 @@ export function setConfig<T extends keyof ConfigSchemas.Config>(
 
   if (
     metadata.changeRequiresRestart &&
-    TestState.isActive &&
+    isTestActive() &&
     Config.funbox.includes("no_quit")
   ) {
     showNoticeNotification(
@@ -153,7 +153,7 @@ export function setQuoteLengthAll(nosave?: boolean): boolean {
 }
 
 export function toggleFunbox(funbox: FunboxName, nosave?: boolean): boolean {
-  if (TestState.isActive && Config.funbox.includes("no_quit")) {
+  if (isTestActive() && Config.funbox.includes("no_quit")) {
     showNoticeNotification(
       "No quit funbox is active. Please finish the test.",
       {
